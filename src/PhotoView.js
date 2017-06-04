@@ -13,16 +13,23 @@ class PhotoView extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange = (name, value) => {
-    this.setState({...this.state, [name]: value});
+  handleChange = (e) => {
+    this.setState({ searchValue: e.target.value });
   };
 
   handleClick(e){
-    //e.preventDefault();
+
+    /** Remember to make sure the string is not empty!!! **/
+
+    console.log(this.state.searchValue)
+
     axios
-      .get('https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=soccer&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json')
+      .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json`)
       .then((res) => {
         console.log('res', res.data)
+      })
+      .then(data => {
+        console.log('type', typeof data)
       })
       .catch((err) => {
         console.error(err)
@@ -41,15 +48,15 @@ class PhotoView extends Component {
             <ControlLabel>Working example with validation</ControlLabel>
             <FormControl
               type="text"
-              value={this.state.searchValue}
-              placeholder="Enter text"
+              //value={this.state.searchValue}
+              placeholder="Search Photos"
               onChange={this.handleChange}
             />
             <FormControl.Feedback />
             <HelpBlock>Validation is based on string length.</HelpBlock>
           </FormGroup>
         </form>
-         <Button bsStyle="info" onClick={this.handleClick}>Info</Button>
+         <Button bsStyle="info" onClick={this.handleClick}>Submit</Button>
       </div>
     );
   }
