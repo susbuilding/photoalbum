@@ -6,7 +6,8 @@ class PhotoView extends Component {
   constructor(){
     super();
     this.state = {
-      searchValue: ''
+      searchValue: '',
+      photos: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,22 +15,29 @@ class PhotoView extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({ searchValue: e.target.value });
+    this.setState({...this.state, searchValue: e.target.value });
   };
 
   handleClick(e){
 
     /** Remember to make sure the string is not empty!!! **/
 
-    console.log(this.state.searchValue)
+    console.log('state', this.state)
 
     axios
-      .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json`)
+      .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json&nojsoncallback=1`)
       .then((res) => {
         console.log('res', res.data)
+        return res.data
       })
       .then(data => {
-        console.log('type', typeof data)
+        console.log('parsing', data.photos.photo)
+        data.photos.photo.forEach(photo => {
+          this.setState({...this.state, photos: Object.assign(this.state.photos, photo)})
+        })
+      })
+      .then(() => {
+        console.log('the state after', this.state )
       })
       .catch((err) => {
         console.error(err)
@@ -39,6 +47,8 @@ class PhotoView extends Component {
 //https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
   render() {
+    let pic = this.state.photos;
+
     return (
       <div>
         <form>
@@ -57,6 +67,10 @@ class PhotoView extends Component {
           </FormGroup>
         </form>
          <Button bsStyle="info" onClick={this.handleClick}>Submit</Button>
+
+         <div>
+          <img src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+         </div>
       </div>
     );
   }
