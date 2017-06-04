@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Input from 'react-toolbox/lib/input';
 import axios from 'axios';
+import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 
 class PhotoView extends Component {
   constructor(){
@@ -34,10 +34,22 @@ class PhotoView extends Component {
   render() {
     return (
       <div>
-      <section>
-       <Input type='text' label='Name' name='name' value={this.state.searchValue} onChange={this.handleChange} />
-      </section>
-        <button onClick={this.handleClick} />
+        <form>
+          <FormGroup
+            controlId="formBasicText"
+          >
+            <ControlLabel>Working example with validation</ControlLabel>
+            <FormControl
+              type="text"
+              value={this.state.searchValue}
+              placeholder="Enter text"
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Validation is based on string length.</HelpBlock>
+          </FormGroup>
+        </form>
+         <Button bsStyle="info" onClick={this.handleClick}>Info</Button>
       </div>
     );
   }
