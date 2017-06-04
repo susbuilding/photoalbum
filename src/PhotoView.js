@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import Input from 'react-toolbox/lib/input';
 import axios from 'axios';
 
 class PhotoView extends Component {
   constructor(){
     super();
-    this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      searchValue: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
+
+  handleChange = (name, value) => {
+    this.setState({...this.state, [name]: value});
+  };
 
   handleClick(e){
     //e.preventDefault();
@@ -24,9 +34,10 @@ class PhotoView extends Component {
   render() {
     return (
       <div>
-      HELLOOOOO!!! PhOTO HEREEE
-      <button onClick={this.handleClick}>
-      </button>
+      <section>
+       <Input type='text' label='Name' name='name' value={this.state.searchValue} onChange={this.handleChange} />
+      </section>
+        <button onClick={this.handleClick} />
       </div>
     );
   }
