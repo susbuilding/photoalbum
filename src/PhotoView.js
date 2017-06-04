@@ -18,8 +18,8 @@ class PhotoView extends Component {
         console.error(err)
       })
   }
-
-
+//https://farm5.staticflickr.com/4221/35041159256_058fcd88fe.jpg
+//https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
   render() {
     return (
