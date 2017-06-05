@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap';
 
 class PhotoView extends Component {
   constructor(){
@@ -14,13 +14,14 @@ class PhotoView extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  /** Sets search term from input form **/
   handleChange = (e) => {
     this.setState({...this.state, searchValue: e.target.value });
   };
 
   handleClick(e){
-
-    /** Remember to make sure the string is not empty!!! **/
+    /** Make sure the string is not empty!!! **/
+    if(this.state.searchValue.length < 1) return;
 
     console.log('state', this.state)
 
@@ -55,10 +56,8 @@ class PhotoView extends Component {
           <FormGroup
             controlId="formBasicText"
           >
-            <ControlLabel>Working example with validation</ControlLabel>
             <FormControl
               type="text"
-              //value={this.state.searchValue}
               placeholder="Search Photos"
               onChange={this.handleChange}
             />
@@ -69,7 +68,11 @@ class PhotoView extends Component {
          <Button bsStyle="info" onClick={this.handleClick}>Submit</Button>
 
          <div>
-          <img src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+          {this.state.searchValue ?
+            <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+            :
+            null
+          }
          </div>
       </div>
     );
