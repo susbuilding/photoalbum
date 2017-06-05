@@ -7,7 +7,7 @@ class PhotoView extends Component {
     super();
     this.state = {
       searchValue: '',
-      photos: {}
+      photos: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,7 +35,7 @@ class PhotoView extends Component {
       .then(data => {
         console.log('parsing', data.photos.photo)
         data.photos.photo.forEach(photo => {
-          this.setState({...this.state, photos: Object.assign(this.state.photos, photo)})
+          this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
       })
       .then(() => {
@@ -69,8 +69,11 @@ class PhotoView extends Component {
         </form>
 
          <div>
-          {this.state.searchValue ?
-            <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+          {this.state.photos ?
+            this.state.photos.forEach(pic => {
+              console.log('HERES A PIC', pic)
+              // return <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+            })
             :
             null
           }
