@@ -20,6 +20,7 @@ class PhotoView extends Component {
   };
 
   handleClick(e){
+    e.preventDefault();
     /** Make sure the string is not empty!!! **/
     if(this.state.searchValue.length < 1) return;
 
@@ -62,10 +63,10 @@ class PhotoView extends Component {
               onChange={this.handleChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length.</HelpBlock>
+            {/**<HelpBlock>Validation is based on string length.</HelpBlock>**/}
           </FormGroup>
+          <Button type="submit" bsStyle="info" onClick={this.handleClick}>Submit</Button>
         </form>
-         <Button bsStyle="info" onClick={this.handleClick}>Submit</Button>
 
          <div>
           {this.state.searchValue ?
