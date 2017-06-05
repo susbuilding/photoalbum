@@ -34,12 +34,15 @@ class PhotoView extends Component {
       })
       .then(data => {
         console.log('parsing', data.photos.photo)
-        data.photos.photo.forEach(photo => {
+        return data.photos.photo.forEach(photo => {
           this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
       })
-      .then(() => {
+      .then((photoData) => {
+        console.log('photodata', photoData)
         console.log('the state after', this.state )
+
+        // can set a const here for each photo instead of in render method https://facebook.github.io/react/docs/lists-and-keys.html
       })
       .catch((err) => {
         console.error(err)
@@ -70,9 +73,8 @@ class PhotoView extends Component {
 
          <div>
           {this.state.photos ?
-            this.state.photos.forEach(pic => {
-              console.log('HERES A PIC', pic)
-              // return <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+            this.state.photos.map(pic => {
+               return <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
             })
             :
             null
