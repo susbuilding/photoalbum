@@ -3,19 +3,13 @@ import { Pagination } from 'react-bootstrap';
 
 //class PhotoView extends Component
 // const PaginationAdvanced = React.createClass({
-class PaginationAdvanced extends Component {
+class PaginationTool extends Component {
     constructor(){
         super();
         this.state = {
             activePage: 1
         }
     };
-
-//   getInitialState = () => {
-//     return {
-//       activePage: 1
-//     };
-//   };
 
   handleSelect = (eventKey) => {
     this.setState({
@@ -24,6 +18,7 @@ class PaginationAdvanced extends Component {
   };
 
   render() {
+      console.log('page state', this.state.activePage)
     return (
       <Pagination
         prev
@@ -40,4 +35,4 @@ class PaginationAdvanced extends Component {
   }
 };
 
-export default PaginationAdvanced;
+export default PaginationTool;
