@@ -7,7 +7,7 @@ class PhotoView extends Component {
     super();
     this.state = {
       searchValue: '',
-      photos: []
+      photos: [],
     };
 
     this.handleChange = this.handleChange.bind(this);

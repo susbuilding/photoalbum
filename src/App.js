@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import PhotoView from './PhotoView'
+import PhotoView from './PhotoView';
+import PaginationAdvanced from './Pagination';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
           <code>src/App.js</code>
         </p>
         <PhotoView />
+        <PaginationAdvanced />
       </div>
     );
   }
