@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import LightboxView from './Lightbox';
 import { Pagination } from 'react-bootstrap';
 
@@ -27,14 +27,14 @@ class PhotoView extends Component {
     });
   };
 
-  /** Sets search term from input form **/
+  /** Sets search term from input form */
   handleChange = (e) => {
     this.setState({...this.state, searchValue: e.target.value });
   };
 
   handleClick(e){
     e.preventDefault();
-    /** Make sure the string is not empty!!! **/
+    /** Make sure the string is not empty */
     if(this.state.searchValue.length < 1) return;
 
     console.log('state', this.state)
@@ -46,8 +46,7 @@ class PhotoView extends Component {
         return res.data
       })
       .then(data => {
-        //console.log('parsing', data.photos.photo)
-        // TODO: currently only handles 100 photos by accessing data.photos.photo
+        // TODO: currently only handles response page 1 (100 photos) by accessing data.photos.photo
         return data.photos.photo.forEach(photo => {
           this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
@@ -65,9 +64,11 @@ class PhotoView extends Component {
 //https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
   render() {
+    /** Sets the index range for 10 photos shown on active page in */
     let startIdx = +((this.state.activePage - 1).toString() + '0');
     let endIdx = +((this.state.activePage).toString() + '0');
 
+    /** Maps each set of 10 photos to src*/
     const LIGHTBOX_IMAGE_SET = this.state.photos.slice(startIdx, endIdx).map(pic => {
         return {src:`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}
     });
