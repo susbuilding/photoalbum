@@ -30,17 +30,17 @@ class PhotoView extends Component {
     axios
       .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json&nojsoncallback=1`)
       .then((res) => {
-        console.log('res', res.data)
+        //console.log('res', res.data)
         return res.data
       })
       .then(data => {
-        console.log('parsing', data.photos.photo)
+        //console.log('parsing', data.photos.photo)
         return data.photos.photo.forEach(photo => {
           this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
       })
       .then((photoData) => {
-        console.log('photodata', photoData)
+        //console.log('photodata', photoData)
         console.log('the state after', this.state )
         // TODO can set a const here for each photo instead of in render method https://facebook.github.io/react/docs/lists-and-keys.html
       })

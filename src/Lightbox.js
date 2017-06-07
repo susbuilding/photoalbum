@@ -79,13 +79,14 @@ class LightboxView extends Component {
     }
 
     render() {
+        console.log('lightbox state', this.state)
         return(
             <div>
             {this.renderGallery()}
                 <Lightbox
                     images={this.props.images}
                     currentImage={this.state.currentImage}
-                    isOpen={this.props.isOpen}
+                    isOpen={this.state.lightboxIsOpen}
                     onClickPrev={this.gotoPrevious}
                     onClickNext={this.gotoNext}
                     onClose={this.closeLightbox}
