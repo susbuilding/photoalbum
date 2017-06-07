@@ -7,6 +7,7 @@ class LightboxView extends Component {
         this.state = {
             lightboxIsOpen: false,
             currentImage: 0,
+            showThumbnails: true,
         };
 
         this.closeLightbox = this.closeLightbox.bind(this);
@@ -90,6 +91,7 @@ class LightboxView extends Component {
                     onClickPrev={this.gotoPrevious}
                     onClickNext={this.gotoNext}
                     onClose={this.closeLightbox}
+                    showThumbnails={this.state.showThumbnails}
                 />
             </div>
         );
