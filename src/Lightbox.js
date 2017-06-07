@@ -66,7 +66,7 @@ class LightboxView extends Component {
                     key={i}
                     onClick={(e) => this.openLightbox(i, e)}
                 >
-                    <Image src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`} responsive />
+                    <Image src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`} thumbnail />
                 </a>
             )
         });
@@ -81,13 +81,13 @@ class LightboxView extends Component {
     render() {
         return(
             <div>
-                <Grid>
-                    <Row>
-                        <Col xs={6} md={4}>
-                                {this.renderGallery()}
-                        </Col>
-                    </Row>
-                </Grid>
+                <div className="row">
+                    <div className="col-xs">
+                        <div className="box">
+                            {this.renderGallery()}
+                        </div>
+                    </div>
+                </div>
                 <Lightbox
                     images={this.props.images}
                     currentImage={this.state.currentImage}
