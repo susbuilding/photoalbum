@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import PhotoView from './PhotoView';
-import PaginationTool from './Pagination';
+// import PaginationTool from './Pagination';
 
 class App extends Component {
   render() {
@@ -15,7 +15,6 @@ class App extends Component {
           <code>src/App.js</code>
         </p>
         <PhotoView />
-        <PaginationTool />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Lightbox from 'react-images';
+import { Grid, Row, Col, Image } from 'react-bootstrap';
 
 class LightboxView extends Component {
     constructor(props){
@@ -20,7 +21,6 @@ class LightboxView extends Component {
 
     openLightbox (index, event) {
 		event.preventDefault();
-        console.log('will lightbox open')
 		this.setState({
 			currentImage: index,
 			lightboxIsOpen: true,
@@ -61,14 +61,21 @@ class LightboxView extends Component {
         const gallery = images.map((obj, i) =>
         {
             return (
+            <Grid>
+                <Row>
+                    <Col xs={6} md={4}>
                 <a
                     href={obj.src}
                     // className={css(classes.thumbnail, classes[obj.orientation])}
                     key={i}
                     onClick={(e) => this.openLightbox(i, e)}
                 >
-                    <img alt="search result" src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`}></img>
+                    {/**<img alt="search result" src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`}></img>**/}
+                    <Image src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`} responsive />
                 </a>
+                     </Col>
+                </Row>
+            </Grid>
             )
         });
 
@@ -80,7 +87,6 @@ class LightboxView extends Component {
     }
 
     render() {
-        console.log('lightbox state', this.state)
         return(
             <div>
             {this.renderGallery()}
@@ -92,6 +98,7 @@ class LightboxView extends Component {
                     onClickNext={this.gotoNext}
                     onClose={this.closeLightbox}
                     showThumbnails={this.state.showThumbnails}
+                    onClickThumbnail={this.gotoImage}
                 />
             </div>
         );

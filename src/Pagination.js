@@ -4,12 +4,12 @@ import { Pagination } from 'react-bootstrap';
 //class PhotoView extends Component
 // const PaginationAdvanced = React.createClass({
 class PaginationTool extends Component {
-    constructor(){
-        super();
-        this.state = {
-            activePage: 1
-        }
-    };
+  constructor(){
+      super();
+      this.state = {
+          activePage: 1
+      }
+  };
 
   handleSelect = (eventKey) => {
     this.setState({

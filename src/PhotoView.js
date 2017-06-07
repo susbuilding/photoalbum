@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import LightboxView from './Lightbox';
+import { Pagination } from 'react-bootstrap';
 
 class PhotoView extends Component {
   constructor(){
@@ -9,11 +10,20 @@ class PhotoView extends Component {
     this.state = {
       searchValue: '',
       photos: [],
+      activePage: 1,
+      currentPagePhotos: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePageSelect = this.handlePageSelect.bind(this)
   }
+
+  handlePageSelect = (eventKey) => {
+    this.setState({
+      activePage: eventKey
+    });
+  };
 
   /** Sets search term from input form **/
   handleChange = (e) => {
@@ -35,6 +45,7 @@ class PhotoView extends Component {
       })
       .then(data => {
         //console.log('parsing', data.photos.photo)
+        // TODO: currently only handles 100 photos
         return data.photos.photo.forEach(photo => {
           this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
@@ -52,7 +63,10 @@ class PhotoView extends Component {
 //https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
   render() {
-    const LIGHTBOX_IMAGE_SET = this.state.photos.slice(0, 10).map(pic => {
+    let startIdx = +((this.state.activePage - 1).toString() + '0');
+    let endIdx = +((this.state.activePage).toString() + '0');
+
+    const LIGHTBOX_IMAGE_SET = this.state.photos.slice(startIdx, endIdx).map(pic => {
         return {src:`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}
     });
 
@@ -71,16 +85,19 @@ class PhotoView extends Component {
           </FormGroup>
           <Button type="submit" bsStyle="info" onClick={this.handleClick}>Submit</Button>
         </form>
+        <LightboxView photos={this.state.photos.slice(startIdx, endIdx)} images={LIGHTBOX_IMAGE_SET} />
 
-        {/**{this.state.photos ?
-            this.state.photos.map(pic => {
-              return <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
-            })
-        :
-           null
-        }**/}
-
-        <LightboxView photos={this.state.photos} images={LIGHTBOX_IMAGE_SET} />
+        <Pagination
+        prev
+        next
+        first
+        last
+        ellipsis
+        boundaryLinks
+        items={10}
+        maxButtons={5}
+        activePage={this.state.activePage}
+        onSelect={this.handlePageSelect} />
       </div>
     );
   }
