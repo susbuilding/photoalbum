@@ -42,12 +42,12 @@ class PhotoView extends Component {
     axios
       .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json&nojsoncallback=1`)
       .then((res) => {
-        //console.log('res', res.data)
+        console.log('res', res.data)
         return res.data
       })
       .then(data => {
         //console.log('parsing', data.photos.photo)
-        // TODO: currently only handles 100 photos
+        // TODO: currently only handles 100 photos by accessing data.photos.photo
         return data.photos.photo.forEach(photo => {
           this.setState({...this.state, photos: [...this.state.photos, photo]})
         })
