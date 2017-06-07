@@ -9,10 +9,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Image Search</h2>
+          <h2>Photo Gallery</h2>
         </div>
         <p className="App-intro">
-          <code>src/App.js</code>
+
         </p>
         <PhotoView />
       </div>

@@ -4,6 +4,8 @@ import { FormGroup, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import LightboxView from './Lightbox';
 import { Pagination } from 'react-bootstrap';
 
+// TODO: searching multiple times adds onto the state.photos, does not reset
+
 class PhotoView extends Component {
   constructor(){
     super();
@@ -78,13 +80,14 @@ class PhotoView extends Component {
           >
             <FormControl
               type="text"
-              placeholder="Search Photos"
+              placeholder="Enter Search Term"
               onChange={this.handleChange}
             />
             <FormControl.Feedback />
           </FormGroup>
-          <Button type="submit" bsStyle="info" onClick={this.handleClick}>Submit</Button>
+          <Button type="submit" bsStyle="primary" onClick={this.handleClick}>Search</Button>
         </form>
+
         <LightboxView photos={this.state.photos.slice(startIdx, endIdx)} images={LIGHTBOX_IMAGE_SET} />
 
         <Pagination
@@ -94,7 +97,7 @@ class PhotoView extends Component {
         last
         ellipsis
         boundaryLinks
-        items={10}
+        items={this.state.photos.length ? this.state.photos.length/10 : 1}
         maxButtons={5}
         activePage={this.state.activePage}
         onSelect={this.handlePageSelect} />
