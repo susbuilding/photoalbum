@@ -18,7 +18,6 @@ class PaginationTool extends Component {
   };
 
   render() {
-      console.log('page state', this.state.activePage)
     return (
       <Pagination
         prev

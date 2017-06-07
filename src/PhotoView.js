@@ -9,8 +9,6 @@ class PhotoView extends Component {
     this.state = {
       searchValue: '',
       photos: [],
-      lightboxIsOpen: false,
-      currentImage: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -74,12 +72,15 @@ class PhotoView extends Component {
           <Button type="submit" bsStyle="info" onClick={this.handleClick}>Submit</Button>
         </form>
 
-        {
-          this.props.photos ?
-          <LightboxView images={LIGHTBOX_IMAGE_SET} />
-          :
-          null
-        }
+        {/**{this.state.photos ?
+            this.state.photos.map(pic => {
+              return <img alt="search result" src={`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}></img>
+            })
+        :
+           null
+        }**/}
+
+        <LightboxView photos={this.state.photos} images={LIGHTBOX_IMAGE_SET} />
       </div>
     );
   }

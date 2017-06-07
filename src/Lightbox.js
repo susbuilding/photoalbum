@@ -19,6 +19,7 @@ class LightboxView extends Component {
 
     openLightbox (index, event) {
 		event.preventDefault();
+        console.log('will lightbox open')
 		this.setState({
 			currentImage: index,
 			lightboxIsOpen: true,
@@ -51,16 +52,45 @@ class LightboxView extends Component {
 		this.gotoNext();
 	}
 
+    renderGallery () {
+        const images = this.props.photos;
+
+        if (!images) return;
+
+        const gallery = images.map((obj, i) =>
+        {
+            return (
+                <a
+                    href={obj.src}
+                    // className={css(classes.thumbnail, classes[obj.orientation])}
+                    key={i}
+                    onClick={(e) => this.openLightbox(i, e)}
+                >
+                    <img alt="search result" src={`https://farm${obj.farm}.staticflickr.com/${obj.server}/${obj.id}_${obj.secret}.jpg`}></img>
+                </a>
+            )
+        });
+
+        return (
+            <div>
+                {gallery}
+            </div>
+        );
+    }
+
     render() {
-        console.log('props', this.props)
         return(
-            <Lightbox
-            images={this.props.images}
-            isOpen={this.state.lightboxIsOpen}
-            onClickPrev={this.gotoPrevious}
-            onClickNext={this.gotoNext}
-            onClose={this.closeLightbox}
-            />
+            <div>
+            {this.renderGallery()}
+                <Lightbox
+                    images={this.props.images}
+                    currentImage={this.state.currentImage}
+                    isOpen={this.props.isOpen}
+                    onClickPrev={this.gotoPrevious}
+                    onClickNext={this.gotoNext}
+                    onClose={this.closeLightbox}
+                />
+            </div>
         );
     }
 };
