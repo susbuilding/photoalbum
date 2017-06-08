@@ -1,14 +1,19 @@
 .App {
   text-align: center;
+  font-family: 'Roboto Slab', serif;
 }
 
 .App-header {
   background-color: #222;
-  height: 75px;
+  height: 100px;
   padding: 20px;
   color: white;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.Search-button {
+  margin: 10px 10px 10px 10px;
 }

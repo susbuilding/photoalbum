@@ -34,15 +34,14 @@ class PhotoView extends Component {
 
   handleClick(e){
     e.preventDefault();
+
     /** Make sure the string is not empty */
     if(this.state.searchValue.length < 1) return;
 
-    console.log('state', this.state)
-
+    /** Make a call to flickr API using search value and requests JSON.*/
     axios
       .get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=${this.state.searchValue}&api_key=baacda639199fa136ac1b35ec2cd3abc&format=json&nojsoncallback=1`)
       .then((res) => {
-        console.log('res', res.data)
         return res.data
       })
       .then(data => {
@@ -52,23 +51,22 @@ class PhotoView extends Component {
         })
       })
       .then((photoData) => {
-        //console.log('photodata', photoData)
-        console.log('the state after', this.state )
         // TODO can set a const here for each photo instead of in render method https://facebook.github.io/react/docs/lists-and-keys.html
       })
       .catch((err) => {
         console.error(err)
       })
   }
-//https://farm5.staticflickr.com/4221/35041159256_058fcd88fe.jpg
-//https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
   render() {
     /** Sets the index range for 10 photos shown on active page in */
     let startIdx = +((this.state.activePage - 1).toString() + '0');
     let endIdx = +((this.state.activePage).toString() + '0');
 
-    /** Maps each set of 10 photos to src*/
+    /** Maps each set of 10 photos to src
+     Format is https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+    */
+
     const LIGHTBOX_IMAGE_SET = this.state.photos.slice(startIdx, endIdx).map(pic => {
         return {src:`https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`}
     });
@@ -86,7 +84,7 @@ class PhotoView extends Component {
             />
             <FormControl.Feedback />
           </FormGroup>
-          <Button type="submit" bsStyle="primary" onClick={this.handleClick}>Search</Button>
+          <Button className="Search-button" type="submit" bsStyle="primary" onClick={this.handleClick}>Search</Button>
         </form>
 
         <LightboxView photos={this.state.photos.slice(startIdx, endIdx)} images={LIGHTBOX_IMAGE_SET} />

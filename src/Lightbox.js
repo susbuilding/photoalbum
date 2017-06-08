@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Lightbox from 'react-images';
-import { Grid, Row, Col, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 
 class LightboxView extends Component {
     constructor(props){
