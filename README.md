@@ -3,7 +3,7 @@
 A gallery displaying photos on Flickr based on searching for keywords/tags.
 
 ## Setup
-
+```
 npm install
 ```
 npm run build
@@ -11,7 +11,6 @@ npm run build
 npm start
 ```
 Head over to localhost:3000 and start searching!
-```
 
 ## Built With
 

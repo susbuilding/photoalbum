@@ -36,7 +36,7 @@ class PhotoView extends Component {
     e.preventDefault();
 
     /** Make sure the string is not empty */
-    if(this.state.searchValue.length < 1) return;
+    if(this.state.searchValue.length < 1) return <div>You didn't enter anything!</div>;
 
     /** Make a call to flickr API using search value and requests JSON.*/
     axios
